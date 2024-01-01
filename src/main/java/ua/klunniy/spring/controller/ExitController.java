@@ -1,4 +1,4 @@
-package ua.klunniy.spring;
+package ua.klunniy.spring.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,13 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 /**
  * @author Serhii Klunniy
  */
-
 @Controller
-public class HelloController {
+public class ExitController {
 
-    @GetMapping("/hello-world")
-    public String sayHello() {
-        return "say_hello";
+    @GetMapping("/exit")
+    public String exit() {
+        return "exit";
     }
 
 }
