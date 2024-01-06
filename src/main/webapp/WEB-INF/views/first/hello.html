@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ua">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -12,12 +12,17 @@
 <div>
     <main>
         <h1>Hello !!!!!</h1>
+
+        <div lang="ua" th:text="${text}">
+        </div>
+
         <p>
-            <a  lang="ru" href="/first/goodbye" target="_blank">Переходим на страницу Goodbye</a>
+<!--            <a  lang="ru" href="/first/goodbye" target="_blank">Go to Goodbye</a>-->
+            <a  lang="ru" href="/first/goodbye">Go to Goodbye</a>
         </p>
 
         <p>
-            <a lang="ru" href="/exit" target="_blank">Переходим на страницу Exit</a>
+            <a lang="ru" href="/exit">Go to Exit</a>
         </p>
     </main>
 </div>
