@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ua.klunniy.spring.dao.PersonDAO;
 import ua.klunniy.spring.models.Person;
 import ua.klunniy.spring.service.PersonService;
 
@@ -33,22 +32,60 @@ public class PeopleController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
 // Получим одного человека по id из DAO и передадим на отображение в представление
-        model.addAttribute("people", personService.show(id));
+        model.addAttribute("person", personService.show(id));
         return "/people/show";
     }
 
+// по адресу /people/new вернется html форма создания человека
+
     @GetMapping("/new")
-    public String newPeople() {
+    public String newPeople(@ModelAttribute("person") Person person) {
         return "/people/new";
     }
+//    @GetMapping("/new")
+//    public String newPeople(Model model) {
+//        model.addAttribute("person", new Person());
+//        return "/people/new";
+//    }
 
-
-    @PostMapping()
-    private String addNewPeopleInDB(@RequestParam(value = "name", required = false) String name,
-                                    @RequestParam(value = "surname", required = false) String surname,
-                                    @RequestParam(value = "email", required = false) String email) {
-
-        personService.add(name, surname, email);
-        return "redirect:/people";
+    @PostMapping("/new")
+    public String create(@ModelAttribute("person") Person person) {
+        //Добавляем человека в БД
+        personService.save(person);
+        return "people/show";
     }
+
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable("id") int id) {
+        model.addAttribute("person", personService.show(id));
+        return "people/edit";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("person") Person person,
+                         @PathVariable("id") int id) {
+        personService.update(id, person);
+        return "people/show";
+    }
+
+// create
+//    @PostMapping()
+//    public String addNewPeopleInDB(@RequestParam(value = "name", required = false) String name,
+//                                   @RequestParam(value = "surname", required = false) String surname,
+//                                   @RequestParam(value = "email", required = false) String email,
+//                                   Model model) {
+//
+//        Person person = new Person();
+//
+//        person.setName(name);
+//        person.setSurname(surname);
+//        person.setEmail(email);
+//
+//        model.addAttribute("person", person);
+//
+//        personService.add(name, surname, email);
+//        return "redirect:/people";
+//        return "people/show";
+//    }
+
 }

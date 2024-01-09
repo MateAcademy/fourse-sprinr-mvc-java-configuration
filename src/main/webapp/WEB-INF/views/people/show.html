@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,17 +9,18 @@
 </head>
 <body>
 
-<h2>One person:</h2>
+    <h2>One person:</h2>
 
-<!-- Виведення даних про одну людину -->
-<div>
-    <p><strong>Id:</strong> <span th:text="${people.getId()}"></span></p>
-    <p><strong>Name:</strong> <span th:text="${people.getName()}"></span></p>
-    <p><strong>Surname:</strong> <span th:text="${people.getSurname()}"></span></p>
-    <p><strong>Email:</strong> <span th:text="${people.getEmail()}"></span></p>
-</div>
+    <!-- Виведення даних про одну людину -->
+    <div>
+        <p><strong>Id:</strong> <span th:text="${person.getId()}"></span></p>
+        <p><strong>Name:</strong> <span th:text="${person.getName()}"></span></p>
+        <p><strong>Surname:</strong> <span th:text="${person.getSurname()}"></span></p>
+        <p><strong>Email:</strong> <span th:text="${person.getEmail()}"></span></p>
+    </div>
 
-<br>
+    <br>
+    <a href="/">Main page</a>
 
 <!--<p th:text="${person.getName()}">VALUE</p>-->
 <!--<p th:text="${person.getId()}">VALUE</p>-->

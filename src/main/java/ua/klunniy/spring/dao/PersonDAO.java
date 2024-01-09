@@ -4,9 +4,7 @@ import org.springframework.stereotype.Component;
 import ua.klunniy.spring.database.PeopleStorage;
 import ua.klunniy.spring.models.Person;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Serhii Klunniy
@@ -22,9 +20,12 @@ public class PersonDAO {
         return PeopleStorage.getPeople().stream().filter(person -> person.getId() == id).findAny().orElse(null);
     }
 
-    public void add(Person person) {
-        if (person != null) {
-            PeopleStorage.add(person);
-        }
+    public void save(Person person) {
+        PeopleStorage.save(person);
     }
+
+    public void update(int id, Person person) {
+        PeopleStorage.update(id, person);
+    }
+
 }

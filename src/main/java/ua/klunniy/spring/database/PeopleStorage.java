@@ -25,8 +25,13 @@ public class PeopleStorage {
         return people;
     }
 
-    public static void add(Person person) {
+    public static void save(Person person) {
         person.setId(++peopleCount);
         people.add(person);
     }
+
+    public static void update(int id, Person person) {
+        people.set(id - 1, person);
+    }
+
 }

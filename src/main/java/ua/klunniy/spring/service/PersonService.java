@@ -27,9 +27,21 @@ public class PersonService {
         return personDAO.show(id);
     }
 
-    public void add(String name, String surname, String email) {
-        if (name != null && surname != null && email != null) {
-            personDAO.add(new Person(name, surname, email));
+//    public void save(String name, String surname, String email) {
+//        if (name != null && surname != null && email != null) {
+//            personDAO.save(new Person(name, surname, email));
+//        }
+//    }
+
+    public void save(Person person) {
+        if (person != null) {
+            personDAO.save(person);
+        }
+    }
+
+    public void update(int id, Person person) {
+        if (person != null) {
+            personDAO.update(id, person);
         }
     }
 
