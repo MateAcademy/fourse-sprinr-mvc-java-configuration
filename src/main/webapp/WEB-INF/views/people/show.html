@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Info for one person</title>
+</head>
+<body>
+
+<h2>One person:</h2>
+
+<!-- Виведення даних про одну людину -->
+<div>
+    <p><strong>Id:</strong> <span th:text="${people.getId()}"></span></p>
+    <p><strong>Name:</strong> <span th:text="${people.getName()}"></span></p>
+    <p><strong>Surname:</strong> <span th:text="${people.getSurname()}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${people.getEmail()}"></span></p>
+</div>
+
+<br>
+
+<!--<p th:text="${person.getName()}">VALUE</p>-->
+<!--<p th:text="${person.getId()}">VALUE</p>-->
+
+</body>
+</html>
