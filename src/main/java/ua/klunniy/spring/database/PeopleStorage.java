@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class PeopleStorage {
     private static int peopleCount = 0;
-    private static List<Person> people;
+    private static final List<Person> people;
 
     static {
         people = new ArrayList<>();
@@ -31,7 +31,16 @@ public class PeopleStorage {
     }
 
     public static void update(int id, Person person) {
-        people.set(id - 1, person);
+        Person personInStorage = people.stream().filter(person1 -> person1.getId() == id).findAny().orElse(null);
+        assert personInStorage != null;
+        personInStorage.setName(person.getName());
+        personInStorage.setSurname(person.getSurname());
+        personInStorage.setEmail(person.getEmail());
+        //people.set(id - 1, person);
+    }
+
+    public static void delete(int id) {
+        people.removeIf(p -> p.getId() == id);
     }
 
 }

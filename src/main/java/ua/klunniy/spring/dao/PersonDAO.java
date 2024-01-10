@@ -28,4 +28,8 @@ public class PersonDAO {
         PeopleStorage.update(id, person);
     }
 
+    public void delete(int id) {
+        PeopleStorage.delete(id);
+    }
+
 }

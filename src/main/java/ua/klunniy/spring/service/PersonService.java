@@ -45,4 +45,8 @@ public class PersonService {
         }
     }
 
+    public void delete(int id) {
+        personDAO.delete(id);
+    }
+
 }
