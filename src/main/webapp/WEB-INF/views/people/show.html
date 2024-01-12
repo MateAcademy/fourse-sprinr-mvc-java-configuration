@@ -9,14 +9,23 @@
 </head>
 <body>
 
-    <h2>One person:</h2>
+    <h2>Edite this person:</h2>
 
     <!-- Виведення даних про одну людину -->
     <div>
         <p><strong>Id:</strong> <span th:text="${person.getId()}"></span></p>
         <p><strong>Name:</strong> <span th:text="${person.getName()}"></span></p>
         <p><strong>Surname:</strong> <span th:text="${person.getSurname()}"></span></p>
+        <p><strong>Age:</strong> <span th:text="${person.getAge()}"></span></p>
         <p><strong>Email:</strong> <span th:text="${person.getEmail()}"></span></p>
+        <hr/>
+        <a href="/people/" >Show all people</a>
+        <br>
+        <a th:href="@{/people/{id}/edit(id=${person.getId()})}">Edite this person</a>
+        <p> <form th:action="@{/people/{id}(id=${person.getId()})}" th:method="delete"
+                  onsubmit="return confirm('Are you sure you want to delete the user?')">
+        <button type="submit">delete</button>
+    </form></p>
     </div>
 
     <br>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,7 +9,13 @@
 </head>
 <body>
 
-    <a href="/people/">Show all people</a>
+    <%--    <a th:href="@{/people/}" th:text="Show all people">Show all people</a>--%>
+    <%--    <br>--%>
+    <%--    <a th:href="@{/people/new}" >Add new person</a>--%>
+    <%--    <br>--%>
+    <%--    <a th:href="@{/people/{id}/edit(id=${person.getId()})}" th:text="update"></a>--%>
+
+    <a href="/people/" >Show all people</a>
     <br>
     <a href="/people/new">Add new person</a>
 

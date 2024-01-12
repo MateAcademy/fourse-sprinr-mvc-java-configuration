@@ -15,10 +15,10 @@ public class PeopleStorage {
     static {
         people = new ArrayList<>();
 
-        people.add(new Person(++peopleCount, "Tom", "surname - Tom", "tom@gmail.com"));
-        people.add(new Person(++peopleCount, "Bob", "surname - Bob", "bob@gmail.com"));
-        people.add(new Person(++peopleCount, "Katy", "surname - Katy", "katy@gmail.com"));
-        people.add(new Person(++peopleCount, "Mike", "surname - Mike", "mike@gmail.com"));
+        people.add(new Person(++peopleCount, "Tom", "surname - Tom", 15, "tom@gmail.com"));
+        people.add(new Person(++peopleCount, "Bob", "surname - Bob", 20,"bob@gmail.com"));
+        people.add(new Person(++peopleCount, "Katy", "surname - Katy", 10,"katy@gmail.com"));
+        people.add(new Person(++peopleCount, "Mike", "surname - Mike", 30, "mike@gmail.com"));
     }
 
     public static List<Person> getPeople() {
@@ -35,8 +35,8 @@ public class PeopleStorage {
         assert personInStorage != null;
         personInStorage.setName(person.getName());
         personInStorage.setSurname(person.getSurname());
+        personInStorage.setAge(person.getAge());
         personInStorage.setEmail(person.getEmail());
-        //people.set(id - 1, person);
     }
 
     public static void delete(int id) {
