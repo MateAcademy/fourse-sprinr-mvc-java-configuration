@@ -3,6 +3,7 @@ package ua.klunniy.spring.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ua.klunniy.spring.models.Person;
 import ua.klunniy.spring.service.PersonService;
@@ -53,7 +54,12 @@ public class PeopleController {
     }
 
     @PostMapping("/new")
-    public String create(@ModelAttribute("person") Person person) {
+    public String create(@ModelAttribute("person") Person person,
+                         BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "people/new";
+        }
+
         personService.save(person);
         return "people/show";
     }
@@ -66,7 +72,11 @@ public class PeopleController {
 
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("person") Person person,
-                         @PathVariable("id") int id) {
+                         @PathVariable("id") int id,
+                         BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "people/new";
+        }
         personService.update(id, person);
         return "people/show";
     }
