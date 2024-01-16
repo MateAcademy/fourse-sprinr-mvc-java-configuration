@@ -23,7 +23,7 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 @Configuration
 @EnableWebMvc  //mvc:annotation-driven
 @ComponentScan("ua.klunniy.spring")
-@PropertySource("classpath:properties.yaml")
+@PropertySource("classpath:hello.properties")
 public class SpringConfig implements WebMvcConfigurer {
 
     private final ApplicationContext applicationContext;

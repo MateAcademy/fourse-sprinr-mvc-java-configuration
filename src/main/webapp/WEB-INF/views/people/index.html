@@ -17,6 +17,7 @@
             <th>Id:</th>
             <th>Name:</th>
             <th>Surname:</th>
+            <th>Age:</th>
             <th>Email:</th>
             <th>Update:</th>
             <th>Delete:</th>
@@ -28,6 +29,7 @@
             <td th:text="${person.getId()}"></td>
             <td th:text="${person.getName()}"></td>
             <td th:text="${person.getSurname()}"></td>
+            <td th:text="${person.getAge()}"></td>
             <td th:text="${person.getEmail()}"></td>
             <td><a th:href="@{/people/{id}/edit(id=${person.getId()})}" th:text="update"></a></td>
 <!--            <td ><a th:method="delete" th:href="@{/people/{id}(id=${person.getId()})}" th:text="delete"></a></td>-->

@@ -8,11 +8,26 @@ import ua.klunniy.spring.models.Person;
 import ua.klunniy.spring.service.PersonService;
 
 /**
- * @author Serhii Klunniy
- */
+ * REST описывает то какие URLы и HTTP методы у нас должны быть для взаимодействия с данными
+ *
+ * С GET запросом вот по этому URL мы получим все записи:
+ * GET /posts Получаем все записи(READ)
+ *
+ * GET /posts/:id Получаем одну запись(READ)
+ * DELETE /posts/:id Удаляем запись(DELETE)
+ *
+ * GET /posts/new HTML форма создания записи
+ * POST /posts Создаем новую запись(CREATE)
+ *
+ * GET /posts/:id/edit HTML форма редактирования записи
+ * PATCH /posts/:id Обновляем запись(UPDATE)
+ *
+ * */
+
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
+
     private final PersonService personService;
 
     @Autowired
@@ -20,32 +35,25 @@ public class PeopleController {
         this.personService = personService;
     }
 
-//  мы реализуем метод который будет возвращать список из людей
     @GetMapping
     public String index(Model model) {
-// Получим всех людей из DAO и передадим на отображение в представление
         model.addAttribute("people", personService.index());
         return "/people/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-// Получим одного человека по id из DAO и передадим на отображение в представление
         model.addAttribute("person", personService.show(id));
         return "/people/show";
     }
-
-// по адресу /people/new вернется html форма создания человека
 
     @GetMapping("/new")
     public String newPeople(@ModelAttribute("person") Person person) {
         return "/people/new";
     }
 
-
     @PostMapping("/new")
     public String create(@ModelAttribute("person") Person person) {
-        //Добавляем человека в БД
         personService.save(person);
         return "people/show";
     }

@@ -1,15 +1,41 @@
 package ua.klunniy.spring.models;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 /**
  * @author Serhii Klunniy
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Person {
-    private int id;
-    private String name;
-    private String surname;
-    private String email;
 
-    public Person() {
+    int id;
+
+    @NotNull(message = "Name shouldn't be not null")
+    @Size(min = 2, max = 30, message = "Size name shouldn't be more 2 and less 30 characters")
+    String name;
+
+    @NotNull(message = "Surname shouldn't be not null")
+    @Size(min = 2, max = 30, message = "Size name shouldn't be more 2 and less 30 characters")
+    String surname;
+
+    @Size(min = 0, max = 150, message = "Age must be more then 0 and less 150")
+    int age;
+
+    @NotNull(message = "Email shouldn't be not null")
+    @Size(min = 2, max = 30, message = "Size email shouldn't be more 2 and less 30 characters")
+    String email;
+
+    public Person(String name, String surname, int age, String email) {
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+        this.email = email;
     }
 
     public Person(String name, String surname, String email) {
@@ -25,35 +51,4 @@ public class Person {
         this.email = email;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }
