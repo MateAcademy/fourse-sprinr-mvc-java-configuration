@@ -1,5 +1,6 @@
 package ua.klunniy.spring.models;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -17,10 +18,12 @@ public class Person {
     int id;
 
     @NotNull(message = "Name shouldn't be not null")
+    @NotEmpty(message = "Name shouldn't be empty")
     @Size(min = 2, max = 30, message = "Size name shouldn't be more 2 and less 30 characters")
     String name;
 
     @NotNull(message = "Surname shouldn't be not null")
+    @NotEmpty(message = "Surname shouldn't be empty")
     @Size(min = 2, max = 30, message = "Size name shouldn't be more 2 and less 30 characters")
     String surname;
 
@@ -28,6 +31,7 @@ public class Person {
     int age;
 
     @NotNull(message = "Email shouldn't be not null")
+    @NotEmpty(message = "Email shouldn't be empty")
     @Size(min = 2, max = 30, message = "Size email shouldn't be more 2 and less 30 characters")
     String email;
 
