@@ -9,15 +9,13 @@
 </head>
 <body>
 
-    <%--    <a th:href="@{/people/}" th:text="Show all people">Show all people</a>--%>
-    <%--    <br>--%>
-    <%--    <a th:href="@{/people/new}" >Add new person</a>--%>
-    <%--    <br>--%>
-    <%--    <a th:href="@{/people/{id}/edit(id=${person.getId()})}" th:text="update"></a>--%>
-
     <a href="/people/" >Show all people</a>
     <br>
     <a href="/people/new">Add new person</a>
+    <hr>
+    <a href="/book/" >Show all books</a>
+    <br>
+    <a href="/book/new">Add new book</a>
 
 </body>
 </html>

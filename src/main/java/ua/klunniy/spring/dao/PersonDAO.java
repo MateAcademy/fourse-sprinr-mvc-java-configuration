@@ -84,16 +84,32 @@ public class PersonDAO {
 //        person.getSurname() +
 //                "'," + person.getAge() + ",'" + person.getEmail() + "')";
         String SQL = "INSERT into Person(name, surname, age, email) VALUES (?,?,?,?)";
-        try (PreparedStatement ps = connection.prepareStatement(SQL)) {
+        try (PreparedStatement ps = connection.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, person.getName());
             ps.setString(2, person.getSurname());
             ps.setInt(3, person.getAge());
             ps.setString(4, person.getEmail());
-            ps.executeUpdate();
+
+            int affectedRows = ps.executeUpdate();
+
+            if (affectedRows > 0) {
+                // Получение сгенерированных ключей
+                try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int id = generatedKeys.getInt(1);
+                        person.setId(id);
+                        System.out.println("Запись успешно вставлена. ID: " + id);
+                    } else {
+                        System.out.println("Не удалось получить ID записи.");
+                    }
+                }
+            } else {
+                System.out.println("Не удалось вставить запись.");
+            }
+            //PeopleStorage.save(person);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        //PeopleStorage.save(person);
     }
 
     public void update(int id, Person updatePerson) {
@@ -108,7 +124,7 @@ public class PersonDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-       // PeopleStorage.update(id, person);
+        // PeopleStorage.update(id, person);
     }
 
     public void delete(int id) {

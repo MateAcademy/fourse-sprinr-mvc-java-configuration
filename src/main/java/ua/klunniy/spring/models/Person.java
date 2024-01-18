@@ -9,6 +9,7 @@ import javax.validation.constraints.Email;
  * @author Serhii Klunniy
  */
 public class Person {
+
     private int id;
 
     @NotEmpty(message = "Name should not be empty")
@@ -23,6 +24,7 @@ public class Person {
     private int age;
 
     @NotEmpty(message = "Email should not be empty")
+    @Size(min = 2, max = 30, message = "Email should be between 2 and 30 characters")
     @Email(message ="Email should be valid")
     private String email;
 

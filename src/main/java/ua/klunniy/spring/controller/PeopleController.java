@@ -38,7 +38,7 @@ public class PeopleController {
         this.personService = personService;
     }
 
-//  мы реализуем метод который будет возвращать список из людей
+    //  мы реализуем метод который будет возвращать список из людей
     @GetMapping
     public String index(Model model) {
 // Получим всех людей из DAO и передадим на отображение в представление
@@ -65,28 +65,28 @@ public class PeopleController {
     public String createPerson(@ModelAttribute("person") @Valid Person person,
                                BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "people/new";
+            return "/people/new";
         }
         //Добавляем человека в БД
         personService.save(person);
-        return "people/show";
+        return "/people/show";
     }
 
     @GetMapping("/{id}/edit")
     public String editPerson(Model model, @PathVariable("id") int id) {
         model.addAttribute("person", personService.show(id));
-        return "people/edit";
+        return "/people/edit";
     }
 
     @PatchMapping("/{id}")
     public String updatePerson(@ModelAttribute("person") @Valid Person person,
-                         BindingResult bindingResult,
-                         @PathVariable("id") int id) {
+                               BindingResult bindingResult,
+                               @PathVariable("id") int id) {
         if (bindingResult.hasErrors()) {
-            return "people/edit";
+            return "/people/edit";
         }
         personService.update(id, person);
-        return "people/show";
+        return "/people/show";
     }
 
     @DeleteMapping("/{id}")
@@ -95,6 +95,7 @@ public class PeopleController {
         return "redirect:/people";
     }
 
+}
 
 //    @GetMapping("/new")
 //    public String newPeople(Model model) {
@@ -122,5 +123,3 @@ public class PeopleController {
 //        return "redirect:/people";
 //        return "people/show";
 //    }
-
-}
