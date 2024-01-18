@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cars</title>
+</head>
+<body>
+
+<h1>List cars:</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Id:</th>
+        <th>Name:</th>
+        <th>Color:</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Виведення даних про cars зі списку -->
+    <tr th:each="car : ${cars}">
+        <td th:text="${car.getId()}"></td>
+        <td th:text="${car.getName()}"></td>
+        <td th:text="${car.getColor()}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<br/>
+
+<a href="/">Main page</a>
+
+</body>
+</html>
