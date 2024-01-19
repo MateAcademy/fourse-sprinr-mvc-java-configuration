@@ -6,6 +6,7 @@ import ua.klunniy.spring.dao.PersonDAO;
 import ua.klunniy.spring.models.Person;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Serhii Klunniy
@@ -25,6 +26,10 @@ public class PersonService {
 
     public Person show(int id) {
         return personDAO.show(id);
+    }
+
+    public Optional<Person> showByEmail(String email) {
+        return personDAO.showByEmail(email);
     }
 
     public void save(Person person) {

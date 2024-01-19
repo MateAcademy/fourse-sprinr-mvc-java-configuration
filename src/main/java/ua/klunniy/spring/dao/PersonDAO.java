@@ -1,18 +1,25 @@
 package ua.klunniy.spring.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import ua.klunniy.spring.database.PeopleStorage;
+import ua.klunniy.spring.models.Book;
+import ua.klunniy.spring.models.BookRowMapper;
 import ua.klunniy.spring.models.Person;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Serhii Klunniy
  */
 @Component
 public class PersonDAO {
+
+    private final JdbcTemplate jdbcTemplate;
 
     private static final String URL = "jdbc:postgresql://localhost:5432/zero_db";
     private static final String USERNAME = "postgres";
@@ -32,6 +39,11 @@ public class PersonDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Autowired
+    public PersonDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     public List<Person> index() {
@@ -77,6 +89,11 @@ public class PersonDAO {
             throw new RuntimeException(e);
         }
         //return PeopleStorage.getPeople().stream().filter(person -> person.getId() == id).findAny().orElse(null);
+    }
+
+    public Optional<Person> showByEmail(String email) {
+       return jdbcTemplate.query("SELECT * from Person where email=?", new Object[]{email},
+               new BeanPropertyRowMapper<>(Person.class)).stream().findAny();
     }
 
     public void save(Person person) {

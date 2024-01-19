@@ -17,11 +17,13 @@
     <br>
     <a href="/book/new">Add new book</a>
     <hr>
-    <a href="/multiple/simple" >Add 1000 car in database</a>
+    <a href="/cars/show" >Show table with cars</a>
     <br>
-    <a href="/multiple/clear" >Clear all cars in db</a>
+    <a href="/cars/add" >Add 100 car in database</a>
     <br>
-    <a href="/multiple/butchProcessor">Add 1000 car in database - butch controller</a>
+    <a href="/cars/clear" >Clear all cars in db</a>
+    <br>
+    <a href="/cars/addButch">Add 100 car in database - butch controller</a>
 
 </body>
 </html>

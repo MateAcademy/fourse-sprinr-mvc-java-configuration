@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ua.klunniy.spring.models.Person;
 import ua.klunniy.spring.service.PersonService;
+import ua.klunniy.spring.util.PersonValidator;
 
 import javax.validation.Valid;
 
@@ -31,10 +32,12 @@ import javax.validation.Valid;
 @RequestMapping("/people")
 public class PeopleController {
     private final PersonService personService;
+    private final PersonValidator personValidator;
 
     @Autowired
-    public PeopleController(PersonService personService) {
+    public PeopleController(PersonService personService, PersonValidator personValidator) {
         this.personService = personService;
+        this.personValidator = personValidator;
     }
 
     //  мы реализуем метод который будет возвращать список из людей
@@ -63,6 +66,8 @@ public class PeopleController {
     @PostMapping("/new")
     public String createPerson(@ModelAttribute("person") @Valid Person person,
                                BindingResult bindingResult) {
+        personValidator.validate(person, bindingResult);
+
         if (bindingResult.hasErrors()) {
             return "/people/new";
         }
@@ -81,6 +86,8 @@ public class PeopleController {
     public String updatePerson(@ModelAttribute("person") @Valid Person person,
                                BindingResult bindingResult,
                                @PathVariable("id") int id) {
+        personValidator.validate(person, bindingResult);
+
         if (bindingResult.hasErrors()) {
             return "/people/edit";
         }

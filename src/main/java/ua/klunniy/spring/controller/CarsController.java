@@ -12,7 +12,7 @@ import ua.klunniy.spring.service.CarService;
  * @author Serhii Klunniy
  */
 @Controller
-@RequestMapping("/multiple")
+@RequestMapping("/cars")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CarsController {
 
@@ -22,9 +22,15 @@ public class CarsController {
         this.carService = carService;
     }
 
-    @GetMapping("/simple")
-    public String multipleQuery(Model model) {
-        carService.add1000CarSimple();
+    @GetMapping("/show")
+    public String show(Model model) {
+        model.addAttribute("cars", carService.getCars());
+        return "multiple/cars";
+    }
+
+    @GetMapping("/add")
+    public String withoutBatch(Model model) {
+        carService.add100CarWithoutBatch();
         model.addAttribute("cars", carService.getCars());
         return "multiple/cars";
     }
@@ -36,9 +42,9 @@ public class CarsController {
         return "multiple/cars";
     }
 
-    @GetMapping("/butchProcessor")
-    public String multipleQueryButchProcessor(Model model) {
-        carService.add1000CarBatchProcessor();
+    @GetMapping("/addButch")
+    public String queryWithBatch(Model model) {
+        carService.add100CarWithBatch();
         model.addAttribute("cars", carService.getCars());
         return "multiple/cars";
     }

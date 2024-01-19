@@ -1,11 +1,9 @@
 package ua.klunniy.spring.service;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import ua.klunniy.spring.dao.CarDao;
 import ua.klunniy.spring.models.Car;
 
@@ -26,16 +24,22 @@ public class CarService {
         this.carDao = carDao;
     }
 
-    public void add1000CarSimple() {
+    public void add100CarWithoutBatch() {
+        long l1 = System.currentTimeMillis();
         carDao.addCarSimple(carList());
+        long l2 = System.currentTimeMillis();
+        System.out.println("Add 100 car (\"without Batch\") from: " + (l2 - l1) + " millisecond." );
     }
 
     public void clear() {
         carDao.clear();
     }
 
-    public void add1000CarBatchProcessor() {
+    public void add100CarWithBatch() {
+        long l1 = System.currentTimeMillis();
         carDao.addCarBatch(carList());
+        long l2 = System.currentTimeMillis();
+        System.out.println("Add 100 car (\"with Batch\") from: " + (l2 - l1) + " millisecond." );
     }
 
     public List<Car> getCars() {
@@ -43,9 +47,9 @@ public class CarService {
     }
 
     private List<Car> carList() {
-        List<Car> carList = new ArrayList<>(1000);
-        for (long i = 0; i < 1000; i++) {
-            Car car = new Car(i, "bmw" + i, "read" + i);
+        List<Car> carList = new ArrayList<>(100);
+        for (long i = 0; i < 100; i++) {
+            Car car = new Car(i, "bmw" + (i + 1), "read");
             carList.add(car);
         }
         return carList;

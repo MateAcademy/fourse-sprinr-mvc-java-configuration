@@ -1,5 +1,7 @@
 package ua.klunniy.spring.dao;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,9 +16,10 @@ import java.util.List;
  * @author Serhii Klunniy
  */
 @Component
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class BookDAO {
 
-    private JdbcTemplate jdbcTemplate;
+    final JdbcTemplate jdbcTemplate;
 
     @Autowired
     public BookDAO(JdbcTemplate jdbcTemplate) {
