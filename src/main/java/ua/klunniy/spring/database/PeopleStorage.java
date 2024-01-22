@@ -15,10 +15,10 @@ public class PeopleStorage {
     static {
         people = new ArrayList<>();
 
-        people.add(new Person(++peopleCount, "Tom", "surname - Tom", 15, "tom@gmail.com"));
-        people.add(new Person(++peopleCount, "Bob", "surname - Bob", 20,"bob@gmail.com"));
-        people.add(new Person(++peopleCount, "Katy", "surname - Katy", 10,"katy@gmail.com"));
-        people.add(new Person(++peopleCount, "Mike", "surname - Mike", 30, "mike@gmail.com"));
+        people.add(new Person(++peopleCount, "Tom", "surname - Tom", 15, "tom@gmail.com", "Kiev"));
+        people.add(new Person(++peopleCount, "Bob", "surname - Bob", 20,"bob@gmail.com", "Rome"));
+        people.add(new Person(++peopleCount, "Katy", "surname - Katy", 10,"katy@gmail.com", "Amsterdam"));
+        people.add(new Person(++peopleCount, "Mike", "surname - Mike", 30, "mike@gmail.com", "Donetsk"));
     }
 
     public static List<Person> getPeople() {

@@ -29,6 +29,10 @@ public class BookService {
         return bookDAO.show(id);
     }
 
+    public Book show(String name) {
+        return bookDAO.show(name).stream().findAny().orElse(null);
+    }
+
     public void save(Book book) {
         if (book != null) {
             bookDAO.save(book);

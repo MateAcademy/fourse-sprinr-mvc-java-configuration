@@ -5,12 +5,18 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import ua.klunniy.spring.models.Book;
 import ua.klunniy.spring.models.BookRowMapper;
 
 import java.sql.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author Serhii Klunniy
@@ -35,9 +41,23 @@ public class BookDAO {
                 .stream().findAny().orElse(null);
     }
 
+    public Optional<Book> show(String name) {
+        return jdbcTemplate.query("SELECT * from Book where name=?", new Object[]{name}, new BookRowMapper())
+                .stream().findAny();
+    }
+
     public void save(Book book) {
-        jdbcTemplate.update("INSERT into Book(name, description) VALUES (?,?)",
-                book.getName(), book.getDescription());
+        SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
+                .withTableName("book")
+                .usingGeneratedKeyColumns("id");
+
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("name", book.getName());
+        parameters.put("description", book.getDescription());
+
+        Number generatedId = simpleJdbcInsert.executeAndReturnKey(parameters);
+
+        book.setId(generatedId.intValue());
     }
 
     public void update(int id, Book updateBook) {

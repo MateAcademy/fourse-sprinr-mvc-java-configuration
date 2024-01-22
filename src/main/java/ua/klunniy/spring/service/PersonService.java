@@ -32,6 +32,10 @@ public class PersonService {
         return personDAO.showByEmail(email);
     }
 
+    public Optional<Person> showByAddress(String address) {
+        return personDAO.showByAddress(address);
+    }
+
     public void save(Person person) {
         if (person != null) {
             personDAO.save(person);

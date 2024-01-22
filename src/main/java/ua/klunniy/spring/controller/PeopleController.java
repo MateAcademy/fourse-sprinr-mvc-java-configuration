@@ -71,7 +71,7 @@ public class PeopleController {
         if (bindingResult.hasErrors()) {
             return "/people/new";
         }
-        //Добавляем человека в БД
+
         personService.save(person);
         return "/people/show";
     }
@@ -91,6 +91,7 @@ public class PeopleController {
         if (bindingResult.hasErrors()) {
             return "/people/edit";
         }
+
         personService.update(id, person);
         return "/people/show";
     }

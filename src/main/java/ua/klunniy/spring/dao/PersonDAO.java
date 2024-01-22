@@ -59,7 +59,8 @@ public class PersonDAO {
                         resultSet.getString("name"),
                         resultSet.getString("surname"),
                         resultSet.getInt("age"),
-                        resultSet.getString("email")
+                        resultSet.getString("email"),
+                        resultSet.getString("address")
                 );
                 people.add(person);
             }
@@ -82,7 +83,8 @@ public class PersonDAO {
                         resultSet.getString("name"),
                         resultSet.getString("surname"),
                         resultSet.getInt("age"),
-                        resultSet.getString("email"));
+                        resultSet.getString("email"),
+                        resultSet.getString("address"));
             }
             return null;
         } catch (SQLException e) {
@@ -92,20 +94,26 @@ public class PersonDAO {
     }
 
     public Optional<Person> showByEmail(String email) {
-       return jdbcTemplate.query("SELECT * from Person where email=?", new Object[]{email},
-               new BeanPropertyRowMapper<>(Person.class)).stream().findAny();
+        return jdbcTemplate.query("SELECT * from Person where email=?", new Object[]{email},
+                new BeanPropertyRowMapper<>(Person.class)).stream().findAny();
+    }
+
+    public Optional<Person> showByAddress(String address) {
+        return jdbcTemplate.query("SELECT * from Person where address=?", new Object[]{address},
+                new BeanPropertyRowMapper<>(Person.class)).stream().findAny();
     }
 
     public void save(Person person) {
 //        String SQL = "INSERT into Person(name, surname, age, email) VALUES ('" + person.getName() + "','" +
 //        person.getSurname() +
 //                "'," + person.getAge() + ",'" + person.getEmail() + "')";
-        String SQL = "INSERT into Person(name, surname, age, email) VALUES (?,?,?,?)";
+        String SQL = "INSERT into Person(name, surname, age, email, address) VALUES (?,?,?,?,?)";
         try (PreparedStatement ps = connection.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, person.getName());
             ps.setString(2, person.getSurname());
             ps.setInt(3, person.getAge());
             ps.setString(4, person.getEmail());
+            ps.setString(5, person.getAddress());
 
             int affectedRows = ps.executeUpdate();
 
@@ -129,19 +137,37 @@ public class PersonDAO {
         }
     }
 
+//    public void save(Person person) {
+//        final String sql = "INSERT INTO PERSON (name, surname, age, email) values (?, ?, ?, ?) RETURNING id";
+//        try (Connection connection = dbConnector.getConnection();
+//             PreparedStatement ps = connection.prepareStatement(sql)) {
+//            ps.setString(1, person.getName());
+//            ps.setString(2, person.getSurname());
+//            ps.setInt(3, person.getAge());
+//            ps.setString(4, person.getEmail());
+//
+//            ResultSet resultSet = ps.executeQuery();
+//            if (resultSet.next()) {
+//                person.setId(resultSet.getInt("id"));
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
     public void update(int id, Person updatePerson) {
-        String SQL = "UPDATE Person SET name=?, surname=?, age=?, email=? where id=?";
+        String SQL = "UPDATE Person SET name=?, surname=?, age=?, email=?, address=? where id=?";
         try (PreparedStatement ps = connection.prepareStatement(SQL)) {
             ps.setString(1, updatePerson.getName());
             ps.setString(2, updatePerson.getSurname());
             ps.setInt(3, updatePerson.getAge());
             ps.setString(4, updatePerson.getEmail());
-            ps.setInt(5, id);
+            ps.setString(5, updatePerson.getAddress());
+            ps.setInt(6, id);
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        // PeopleStorage.update(id, person);
     }
 
     public void delete(int id) {
@@ -152,7 +178,6 @@ public class PersonDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        //PeopleStorage.delete(id);
     }
 
 }

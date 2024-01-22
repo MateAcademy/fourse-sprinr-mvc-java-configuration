@@ -1,13 +1,17 @@
 package ua.klunniy.spring.models;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-import javax.validation.constraints.Email;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.*;
 
 /**
  * @author Serhii Klunniy
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Person {
 
     private int id;
@@ -28,59 +32,18 @@ public class Person {
     @Email(message ="Email should be valid")
     private String email;
 
-    public Person() {
-    }
+//Страна, Город, Индекс(6 цифр)
+    @NotEmpty(message = "Address should not be empty")
+    @Size(min = 6, max = 30, message = "Address should be between 6 and 30 characters")
+    @Pattern(regexp = "[A-Z]\\w+, [A-Z]\\w+, \\d{6}", message = "Your address should be in this format: Country, City, Postal Code (6 digits)")
+    private String address;
 
-    public Person(String name, String surname, int age, String email) {
+    public Person(String name, String surname, int age, String email, String address) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.age = age;
-    }
-
-    public Person(int id, String name, String surname, int age, String email) {
-        this(name, surname, age, email);
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
+        this.address = address;
     }
 
 }

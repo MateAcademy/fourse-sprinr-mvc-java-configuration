@@ -25,7 +25,7 @@ public class PersonValidator implements Validator {
         return Person.class.equals(clazz);
     }
 
-//Здесь я реализовал логику - проверку из Бд email, если нового пользователя создаю то в БД
+    //Здесь я реализовал логику - проверку из Бд email, если нового пользователя создаю то в БД
 //проверяется есть ли такой емайл, а вот если обновляю пользователя из БД то емейл в БД проверяется только если в обновленном он изменен
     @Override
     public void validate(Object o, Errors errors) {
@@ -37,9 +37,18 @@ public class PersonValidator implements Validator {
             if (!(person.getEmail().equals(personFromDb.getEmail())) && personService.showByEmail(person.getEmail()).isPresent()) {
                 errors.rejectValue("email", "", "Error, this email is present in database");
             }
+
+            if (!(person.getAddress().equals(personFromDb.getAddress())) && personService.showByAddress(person.getAddress()).isPresent()) {
+                errors.rejectValue("address", "", "Error, this address is present in database");
+            }
         } else {
-            if ((personService.showByEmail(person.getEmail()).isPresent()))
+            if ((personService.showByEmail(person.getEmail()).isPresent())) {
                 errors.rejectValue("email", "", "Error, this email is present in database");
+            }
+
+            if ((personService.showByAddress(person.getAddress()).isPresent())) {
+                errors.rejectValue("address", "", "Error, this address is present in database");
+            }
         }
     }
 

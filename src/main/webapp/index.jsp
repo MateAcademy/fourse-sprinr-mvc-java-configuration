@@ -9,19 +9,22 @@
 </head>
 <body>
 
-    <a href="/people/" >Show all people</a>
+    <br>
+    <a href="/admin">Appoint an administrator</a>
+    <hr>
+    <a href="/people/">Show all people</a>
     <br>
     <a href="/people/new">Add new person</a>
     <hr>
-    <a href="/book/" >Show all books</a>
+    <a href="/book/">Show all books</a>
     <br>
     <a href="/book/new">Add new book</a>
     <hr>
-    <a href="/cars/show" >Show table with cars</a>
+    <a href="/cars/show">Show table with cars</a>
     <br>
-    <a href="/cars/add" >Add 100 car in database</a>
+    <a href="/cars/add">Add 100 car in database</a>
     <br>
-    <a href="/cars/clear" >Clear all cars in db</a>
+    <a href="/cars/clear">Clear all cars in db</a>
     <br>
     <a href="/cars/addButch">Add 100 car in database - butch controller</a>
 

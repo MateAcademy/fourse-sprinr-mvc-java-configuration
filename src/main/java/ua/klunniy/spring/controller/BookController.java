@@ -6,9 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ua.klunniy.spring.models.Book;
-import ua.klunniy.spring.models.Person;
 import ua.klunniy.spring.service.BookService;
-import ua.klunniy.spring.service.PersonService;
+import ua.klunniy.spring.util.BookValidator;
 
 import javax.validation.Valid;
 
@@ -32,10 +31,12 @@ import javax.validation.Valid;
 @RequestMapping("/book")
 public class BookController {
     private final BookService bookService;
+    private final BookValidator bookValidator;
 
     @Autowired
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService, BookValidator bookValidator) {
         this.bookService = bookService;
+        this.bookValidator = bookValidator;
     }
 
     @GetMapping
@@ -57,10 +58,13 @@ public class BookController {
 
     @PostMapping("/new")
     public String createBook(@ModelAttribute("book") @Valid Book book,
-                               BindingResult bindingResult) {
+                             BindingResult bindingResult) {
+        bookValidator.validate(book, bindingResult);
+
         if (bindingResult.hasErrors()) {
             return "/book/new";
         }
+
         bookService.save(book);
         return "/book/show";
     }
@@ -73,11 +77,14 @@ public class BookController {
 
     @PatchMapping("/{id}")
     public String updateBook(@ModelAttribute("book") @Valid Book book,
-                               BindingResult bindingResult,
-                               @PathVariable("id") int id) {
+                             BindingResult bindingResult,
+                             @PathVariable("id") int id) {
+        bookValidator.validate(book, bindingResult);
+
         if (bindingResult.hasErrors()) {
             return "/book/edit";
         }
+
         bookService.update(id, book);
         return "/book/show";
     }
